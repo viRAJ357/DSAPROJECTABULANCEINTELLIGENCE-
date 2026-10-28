@@ -9,6 +9,7 @@ import { useWebSocket } from './hooks/useWebSocket';
 import type { Emergency, Ambulance, Hospital, CityGraph, DispatchResult, PathDetail, WSMessage, ActivePanel } from './types';
 import { getEmergencies, getAmbulances, getHospitals, getGraph } from './api';
 import { Bell, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface Notification { id: string; msg: string; type: 'emergency' | 'dispatch' | 'resolve'; time: Date }
 
@@ -128,36 +129,47 @@ function App() {
           </div>
         </header>
 
-        {/* Panel content */}
-        <div className="flex-1 overflow-hidden">
-          {activePanel === 'dashboard' && (
-            <Dashboard emergencies={emergencies} ambulances={ambulances} hospitals={hospitals} />
-          )}
-          {activePanel === 'map' && (
-            <MapView
-              emergencies={emergencies}
-              ambulances={ambulances}
-              hospitals={hospitals}
-              cityGraph={cityGraph}
-              activeRoute={activeRoute}
-              onEmergencyDispatch={fetchAll}
-            />
-          )}
-          {activePanel === 'dispatch' && (
-            <DispatchPanel
-              emergencies={emergencies}
-              ambulances={ambulances}
-              hospitals={hospitals}
-              onDispatch={handleDispatch}
-              onRefresh={fetchAll}
-            />
-          )}
-          {activePanel === 'benchmark' && (
-            <BenchmarkPanel cityGraph={cityGraph} />
-          )}
-          {activePanel === 'simulation' && (
-            <SimulationPanel />
-          )}
+        {/* Panel content with Framer Motion transitions */}
+        <div className="flex-1 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activePanel}
+              initial={{ opacity: 0, y: 10, scale: 0.995 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.995 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="h-full w-full overflow-hidden"
+            >
+              {activePanel === 'dashboard' && (
+                <Dashboard emergencies={emergencies} ambulances={ambulances} hospitals={hospitals} />
+              )}
+              {activePanel === 'map' && (
+                <MapView
+                  emergencies={emergencies}
+                  ambulances={ambulances}
+                  hospitals={hospitals}
+                  cityGraph={cityGraph}
+                  activeRoute={activeRoute}
+                  onEmergencyDispatch={fetchAll}
+                />
+              )}
+              {activePanel === 'dispatch' && (
+                <DispatchPanel
+                  emergencies={emergencies}
+                  ambulances={ambulances}
+                  hospitals={hospitals}
+                  onDispatch={handleDispatch}
+                  onRefresh={fetchAll}
+                />
+              )}
+              {activePanel === 'benchmark' && (
+                <BenchmarkPanel cityGraph={cityGraph} />
+              )}
+              {activePanel === 'simulation' && (
+                <SimulationPanel />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </main>
 

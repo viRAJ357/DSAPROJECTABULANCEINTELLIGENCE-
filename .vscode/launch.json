@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "SmartRoute Backend (Python)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/smartroute-backend/main.py",
+      "cwd": "${workspaceFolder}/smartroute-backend",
+      "console": "integratedTerminal",
+      "env": {
+        "PORT": "8000"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Backend Server",
+      "type": "shell",
+      "command": "python main.py",
+      "options": {
+        "cwd": "${workspaceFolder}/smartroute-backend"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Frontend Dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/smartroute-frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Frontend (Production)",
+      "type": "shell",
+      "command": "npm run build",
+      "options": {
+        "cwd": "${workspaceFolder}/smartroute-frontend"
+      },
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

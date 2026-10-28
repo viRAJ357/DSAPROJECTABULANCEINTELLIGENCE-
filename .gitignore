@@ -1,0 +1,27 @@
+# Python
+smartroute-backend/venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Node & Frontend
+smartroute-frontend/node_modules/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment & OS
+.env
+.env.local
+.DS_Store
+Thumbs.db
+
+# Build Artifacts
+smartroute-frontend/dist/
+dist/
+build/
+.system_generated/
